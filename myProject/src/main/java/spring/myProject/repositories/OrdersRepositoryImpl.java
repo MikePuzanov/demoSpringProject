@@ -1,4 +1,4 @@
 package spring.myProject.repositories;
 
-public interface OrdersRepository {
+public interface OrdersRepositoryImpl {
 }

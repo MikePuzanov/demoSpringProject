@@ -2,15 +2,15 @@ package spring.myProject.services;
 
 import org.springframework.stereotype.Service;
 import spring.myProject.models.Book;
-import spring.myProject.repositories.BookRepository;
+import spring.myProject.repositories.BookRepositoryImpl;
 
 import java.util.List;
 
 @Service
 public class BookService {
-    private final BookRepository bookRepository;
+    private final BookRepositoryImpl bookRepository;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepositoryImpl bookRepository) {
         this.bookRepository = bookRepository;
     }
 

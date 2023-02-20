@@ -1,5 +1,5 @@
 package spring.myProject.models;
 
-public enum PersonType {
+public enum UserType {
     ADMIN, CLIENT
 }

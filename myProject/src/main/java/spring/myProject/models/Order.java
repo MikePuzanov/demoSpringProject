@@ -10,13 +10,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
 
-    @Column(name = "customerId")
+    @Column(name = "customerId", nullable = false)
     public int customerId;
 
-    @Column(name = "adminId")
+    @Column(name = "adminId", nullable = false)
     public int adminId;
 
-    @Column(name = "bookId")
+    @Column(name = "bookId", nullable = false)
     public int bookId;
 
     @Column(name = "isDone")
