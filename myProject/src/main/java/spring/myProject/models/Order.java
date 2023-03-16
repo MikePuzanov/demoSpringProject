@@ -8,19 +8,21 @@ public class Order {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+    private int id;
 
-    @Column(name = "customerId", nullable = false)
-    public int customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerId")
+    private User customerId;
 
     @Column(name = "adminId", nullable = false)
-    public int adminId;
+    private Long adminId;
 
-    @Column(name = "bookId", nullable = false)
-    public int bookId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bookId")
+    private Book bookId;
 
     @Column(name = "isDone")
-    public boolean isDone;
+    private boolean isDone;
 
     public int getId() {
         return id;
@@ -30,27 +32,27 @@ public class Order {
         this.id = id;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public long getCustomerId() {
+        return customerId.getId();
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(User customerId) {
         this.customerId = customerId;
     }
 
-    public int getAdminId() {
+    public long getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(int adminId) {
+    public void setAdminId(Long adminId) {
         this.adminId = adminId;
     }
 
-    public int getBookId() {
-        return bookId;
+    public long getBookId() {
+        return bookId.getId();
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(Book bookId) {
         this.bookId = bookId;
     }
 
@@ -65,7 +67,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, int customerId, int adminId, int bookId, boolean isDone) {
+    public Order(int id, User customerId, Long adminId, Book bookId, boolean isDone) {
         this.id = id;
         this.customerId = customerId;
         this.adminId = adminId;

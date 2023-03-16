@@ -4,9 +4,7 @@ public class RegistrationDTO {
     private String name;
     private String surname;
     private String mail;
-
     private String password;
-    private int age;
 
     public String getName() {
         return name;
@@ -40,22 +38,14 @@ public class RegistrationDTO {
         this.password = password;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public RegistrationDTO() {
     }
 
-    public RegistrationDTO(String name, String surname, String mail, String password, int age) {
+    public RegistrationDTO(String name, String surname, String mail, String password) {
         this.name = name;
         this.surname = surname;
         this.mail = mail;
         this.password = password;
-        this.age = age;
     }
 }

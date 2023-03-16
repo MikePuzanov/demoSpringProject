@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.util.*;
 
 @Entity
 @Table(name = "Users")
@@ -12,26 +12,21 @@ public class User implements UserDetails {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private Long id;
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "age", nullable = false)
-    private int age;
-
     @Column(name = "surname", nullable = false)
     private String surname;
-
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "password", nullable = false)
+    @Column(name = "mail", nullable = false)
+    private String mail;
+    @Column(name = "password", nullable = false, length = 2000)
     private String password;
-
-    @Enumerated(EnumType.ORDINAL)
+    @ElementCollection(targetClass = UserType.class)
+    @CollectionTable(name = "user_role" , joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "personType")
-    private UserType personType;
+    private Set<UserType> personType = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customerId", orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
@@ -40,12 +35,12 @@ public class User implements UserDetails {
 
     }
 
-    public User(int id,
-                String email,
+    public User(Long id,
+                String mail,
                 String password,
                 Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.email = email;
+        this.mail = mail;
         this.password = password;
         this.authorities = authorities;
     }
@@ -80,11 +75,11 @@ public class User implements UserDetails {
         return false;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -109,31 +104,35 @@ public class User implements UserDetails {
     }
 
     public String getMail() {
-        return email;
+        return mail;
     }
 
-    public void setMail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public UserType getPersonType() {
+    public Set<UserType> getPersonType() {
         return personType;
     }
 
-    public void setPersonType(UserType personType) {
+    public void setPersonType(Set<UserType> personType) {
         this.personType = personType;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 }
 
